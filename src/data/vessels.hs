@@ -51,7 +51,7 @@ data Vessel = Vessel
   -- | The home port of the vessel
   , _vesselPort :: Port
   -- |- The various registrations of the vessel.
-  , _vesselRegistrations :: Registrations
+  , _vesselRegistrations :: VesselRegistrations
   -- | Communication data including Radio, Telephone, E-Mail, etc.
   , _vesselCommunication :: Communication
   -- | Environmental data measured locally including Depth, Wind, Temp, etc.
@@ -107,16 +107,16 @@ data Notifications = Notifications
   }
 
 -- | The various registrations of the vessel.
-data Registrations = Registrations
+data VesselRegistrations = VesselRegistrations
   { -- | The IMO number of the vessel.
-    _registrationsImo :: Imo
+    _vesselsRegistrationsImo :: Imo
   -- | The national registration number of the vessel.
-  , _registrationsNational :: National
+  , _vesselsRegistrationsNational :: National
   -- | A local or state registration number of the vessel.
-  , _registrationsLocal :: Local
+  , _vesselsRegistrationsLocal :: Local
   -- | Other registration or permits for the vessel.
-  , _registrationsOther :: Other
-  }y
+  , _vesselsRegistrationsOther :: Other
+  }
 
 -- | The national registration number of the vessel.
 data National = National
