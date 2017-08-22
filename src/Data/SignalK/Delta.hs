@@ -1,6 +1,9 @@
-module SignalK.Data.Delta where
+{-# LANGUAGE DeriveGeneric #-}
 
-import Data.Aeson.Types (Value)
+module Data.SignalK.Delta where
+
+import Data.Aeson.Types (Value, ToJSON, toEncoding)
+import Data.Time.Clock (DiffTime)
 import qualified Data.Text as T
 
 data Delta = Delta
@@ -26,6 +29,9 @@ data Delta = Delta
   -- | changes, use the updates message for regular changes.
   , _deltaPut :: [Put]
   }
+
+instance ToJSON Person where
+    toEncoding = genericToEncoding defaultOptions
 
 data Update = Update
   { _updateSourceRef :: SourceRef
@@ -58,17 +64,17 @@ data Subscription = Subscription
 -- | An unsubscribe request.
 data Unsubscribe = Unsubscribe
   { -- | The relative path to unsubscribe,  supports jsonPath syntax for complex matches
-    _subscriptionPath :: Path
+    _unsubscribePath :: Path
   -- | The period to repeat the message in millisecs
-  , _subscriptionPeriod :: Maybe DiffTime
+  , _unsubscribePeriod :: Maybe DiffTime
   -- | The message format for periodic messages
-  , _subscriptionFormat :: Maybe Format
+  , _unsubscribeFormat :: Maybe Format
   -- | The policy rules for repetition. [instant]=send all changes as fast as they are received,
   -- | but no faster than minPeriod. [ideal]=use instant policy, but send the value every `period`
   -- |millisecs anyway, whether changed or not. [fixed]=send the last known values every period.
-  , _subscriptionPolicy :: Maybe Policy
+  , _unsubscribePolicy :: Maybe Policy
   -- | The the fastest message transmission rate allowed, e.g. every `minPeriod/1000` seconds.
-  , _subscriptionMinPeriod :: Maybe DiffTime
+  , _unsubscribeMinPeriod :: Maybe DiffTime
   }
 
   -- | A websockets equivalent to a REST PUT request. This is for one-off

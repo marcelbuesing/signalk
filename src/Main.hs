@@ -14,6 +14,8 @@ import qualified Data.Text.IO as T
 
 import qualified Network.WebSockets as WS
 
+import SignalK.Data.Delta
+
 
 type Client = (Text, WS.Connection)
 
